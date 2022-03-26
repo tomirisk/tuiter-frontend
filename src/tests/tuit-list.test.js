@@ -1,8 +1,7 @@
 import Tuits from "../components/tuits";
 import {screen, render} from "@testing-library/react";
 import {HashRouter} from "react-router-dom";
-import {findAllTuits} from "../services/tuits-service";
-import axios from "axios";
+import {api, findAllTuits} from "../services/tuits-service";
 
 const MOCKED_USERS = [
   {username: 'alice', password: 'lv426', email: 'alice@hogwarts.com', _id: '111'},
@@ -50,7 +49,7 @@ test('tuit list renders async', async () => {
 });
 
 test('tuit list renders mocked', async () => {
-  const mock = jest.spyOn(axios, 'get');
+  const mock = jest.spyOn(api, 'get');
   mock.mockImplementation(() =>
                             Promise.resolve({ data: {tuits: MOCKED_TUITS} }));
   const response = await findAllTuits();

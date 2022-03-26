@@ -4,7 +4,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const TUITS_API = `${BASE_URL}/api/tuits`;
 const USERS_API = `${BASE_URL}/api/users`;
 
-const api = axios.create({withCredentials: true});
+export const api = axios.create({withCredentials: true});
 
 export const findAllTuits = () =>
   api.get(TUITS_API).then(response => response.data);

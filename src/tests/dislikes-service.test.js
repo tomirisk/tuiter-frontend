@@ -1,7 +1,3 @@
-/**
- * @jest-environment node
- */
-
 import {findAllUsersThatDislikedTuit, userTogglesTuitDislikes} from '../services/dislikes-service';
 import {userTogglesTuitLikes} from '../services/likes-service';
 import {createTuit, deleteTuit, findTuitById} from '../services/tuits-service';
@@ -34,7 +30,7 @@ describe('can dislike a tuit with REST API', () => {
 
   // sample tuit to insert
   const tuit = {
-    _id: '622adeabf921c0052a058d51',
+    _id: '622adeabf921c0052a058d61',
     tuit: 'What\'s up doc?'
   };
 
@@ -65,7 +61,7 @@ describe('can remove dislike on a tuit with REST API', () => {
 
   // sample tuit to insert
   const tuit = {
-    _id: '622adeabf921c0052a058d52',
+    _id: '622adeabf921c0052a058d62',
     tuit: 'What\'s up doc?'
   };
 
@@ -100,7 +96,7 @@ describe('can dislike a tuit and remove like with REST API', () => {
 
   // sample tuit to insert
   const tuit = {
-    _id: '622adeabf921c0052a058d53',
+    _id: '622adeabf921c0052a058d63',
     tuit: 'What\'s up doc?'
   };
 
@@ -160,7 +156,7 @@ describe('can retrieve list of users that disliked a tuit with REST API', () => 
 
   // sample tuit to insert
   const tuit = {
-    _id: '622adeabf921c0052a058d54',
+    _id: '622adeabf921c0052a058d64',
     tuit: 'What\'s up doc?'
   };
 
