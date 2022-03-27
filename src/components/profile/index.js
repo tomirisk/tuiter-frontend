@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate, Route, Routes} from "react-router-dom";
+import {useNavigate, Route, Routes, Link} from "react-router-dom";
 import * as service from "../../services/auth-service";
 import MyTuits from "./my-tuits";
 import TuitsAndReplies from "./tuits-and-replies";
@@ -25,15 +25,18 @@ const Profile = () => {
       <h6>@{profile.username}</h6>
       <button onClick={logout}>Logout</button>
 
+      <ul className="mt-4 nav nav-pills nav-fill">
+        <li className="nav-item"><Link className={`nav-link`} to="/profile/mytuits">Tuits</Link></li>
+        <li className="nav-item"><Link className={`nav-link`} to="/profile/tuits-and-replies">Tuits & replies</Link></li>
+        <li className="nav-item"><Link className={`nav-link`} to="/profile/media">Media</Link></li>
+        <li className="nav-item"><Link className={`nav-link`} to="/profile/mylikes">Likes</Link></li>
+      </ul>
+
       <Routes>
-        <Route path="/mytuits"
-               element={<MyTuits/>}/>
-        <Route path="/tuits-and-replies"
-               element={<TuitsAndReplies/>}/>
-        <Route path="/media"
-               element={<Media/>}/>
-        <Route path="/mylikes"
-               element={<MyLikes/>}/>
+        <Route path="/mytuits" element={<MyTuits/>}/>
+        <Route path="/tuits-and-replies" element={<TuitsAndReplies/>}/>
+        <Route path="/media" element={<Media/>}/>
+        <Route path="/mylikes" element={<MyLikes/>}/>
       </Routes>
 
     </div>
