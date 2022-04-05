@@ -10,13 +10,17 @@ import MyDislikes from "./my-dislikes";
 const Profile = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({});
-  useEffect(async () => {
-    try {
-      const user = await service.profile();
-      setProfile(user);
-    } catch (e) {
-      navigate('/login');
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const user = await service.profile();
+        setProfile(user);
+      } catch (e) {
+        navigate('/login');
+      }
     }
+
+    loadProfile();
   }, []);
   const logout = () => service.logout().then(() => navigate('/login'));
 

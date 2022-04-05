@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
-import ChatList from "./chat-list";
 import * as userService from "../../services/users-service";
+import {Link, useNavigate} from "react-router-dom";
+import "./index.css";
+import * as service from "../../services/auth-service";
 
 /**
  * Represents the messages component of Tuiter
@@ -8,6 +10,7 @@ import * as userService from "../../services/users-service";
  * @constructor
  */
 const Messages = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [chats, setChats] = useState([]);
 
@@ -23,16 +26,47 @@ const Messages = () => {
   }
 
   useEffect(() => {
-    userService.findAllUsers().then(userList => {
-      setUsers(userList);
-      setChats(userList);
-    });
+    const fetchChats = () => {
+      service.profile().then(me => {
+        userService.findAllUsers().then(userList => {
+          setUsers(userList.filter(user => user._id !== me._id));
+          setChats(userList.filter(user => user._id !== me._id));
+        });
+      }).catch(e => {
+        navigate('/login', {
+          state: {
+            redirect: '/messages',
+          }
+        });
+      })
+    }
+
+    fetchChats();
   }, []);
 
   return(
     <>
-      <input className="form-control" onChange={(event) => setChatList(event.target.value)} />
-      <ChatList chatList={chats} />
+      <ul className="list-group">
+        <li className="list-group-item">
+          <input className="form-control rounded-pill bg-secondary bg-opacity-25"
+                 placeholder="Search recipient"
+                 onChange={(event) => setChatList(event.target.value)} />
+        </li>
+        {
+          chats.map && chats.map(chat => {
+            return (
+              <Link to="chat" key={chat.username} state={{chat}} className="list-group-item bg-secondary bg-opacity-25">
+                <div className="w-100 d-flex">
+                  <img className="avatar me-2" src="/images/alice.jpg" alt=""/>
+                  <div className="p-2 text-break overflow-auto">
+                    <span>@{chat.username} - {chat.firstName} {chat.lastName}</span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })
+        }
+      </ul>
     </>
   );
 };

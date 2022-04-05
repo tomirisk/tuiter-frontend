@@ -1,4 +1,5 @@
 import React from "react";
+import * as mediaService from '../../services/media-service';
 
 /**
  * Represents the message component of the chat section
@@ -6,14 +7,13 @@ import React from "react";
  * @returns {JSX.Element} react component
  * @constructor
  */
-const MessageItem = ({messageItem}) => {
-  // TODO: use redux to store profile
-  const me = "me";
-
+const MessageItem = ({messageItem, me}) => {
   /**
    * Downloads the attachment in the message item
    */
   const download = () => {
+    //mediaService.get(messageItem.attachmentKey);
+    // TODO : replace with the above call after configuring S3
     fetch(messageItem.attachment)
       .then(resp => resp.blob())
       .then(blob => {
@@ -30,19 +30,19 @@ const MessageItem = ({messageItem}) => {
   }
 
   return(
-    <>
+    <li className="list-group-item border-0">
       {
-        messageItem.sender === me && (
+        messageItem.recipient === me._id && (
           messageItem.attachment ?
-            <div className="p-2 w-100 d-flex">
-              <img className="avatar me-2" src="/images/alice.jpg"/>
+            <div className="w-100 d-flex">
+              <img className="avatar me-2" src="/images/alice.jpg" alt=""/>
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25 d-flex align-items-center">
-                <div className="px-2 round-button bg-secondary bg-opacity-50" onClick={download}><i className="fa fa-download"/></div>
+                <div className="px-2 round-icon bg-secondary bg-opacity-50" onClick={download}><i className="fa fa-download"/></div>
                 <div className="ps-2">{messageItem.message}</div>
               </div>
             </div>
            :
-            <div className="p-2 w-100 d-flex">
+            <div className="w-100 d-flex">
               <img className="avatar me-2" src="/images/alice.jpg" alt=""/>
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25">
                 {messageItem.message}
@@ -51,17 +51,17 @@ const MessageItem = ({messageItem}) => {
         )
       }
       {
-        messageItem.receiver === me && (
+        messageItem.sender === me._id && (
           messageItem.attachment ?
-            <div className="p-2 w-100 d-flex justify-content-end">
+            <div className="w-100 d-flex justify-content-end">
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25 d-flex align-items-center">
-                <div className="px-2 round-button bg-secondary bg-opacity-50" onClick={download}><i className="fa fa-download"/></div>
+                <div className="px-2 round-icon bg-secondary bg-opacity-50" onClick={download}><i className="fa fa-download"/></div>
                 <div className="ps-2">{messageItem.message}</div>
               </div>
               <img className="avatar ms-2" src="/images/bob.jpg" alt=""/>
             </div>
             :
-            <div className="p-2 w-100 d-flex justify-content-end">
+            <div className="w-100 d-flex justify-content-end">
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25">
                 {messageItem.message}
               </div>
@@ -69,7 +69,7 @@ const MessageItem = ({messageItem}) => {
             </div>
         )
       }
-    </>
+    </li>
   );
 }
 
