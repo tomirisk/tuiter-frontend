@@ -1,0 +1,98 @@
+[
+  {
+    "_id": 1,
+    "image": "https://www.nme.com/wp-content/uploads/2021/04/assassins-creed-2@2000x1270.jpg",
+    "postedOn": "12h",
+    "description": "Nothing is true, everything is permitted.",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 2,
+    "image": "https://wegotthiscovered.com/wp-content/uploads/2021/06/Erwin-Smith.jpg",
+    "postedOn": "12h",
+    "description": "All men die sooner or later. Does that mean all life is meaningless? Was there no purpose to any of us ever being born? And if so, would you say the same of our dead comrades? Were all of their lives... meaningless? NO, ABSOLUTELY NOT! IT IS UP TO US TO GIVE MEANING TO OUR COMRADES' DEATHS! THOSE BRAVE FALLEN MEN AND WOMEN! THOSE POOR FALLEN MEN AND WOMEN! THE ONLY ONES WHO ARE CAPABLE OF PAYING RESPECT TO THEM, ARE WE, THE LIVING! WE TOO SHALL ALL DIE HERE TODAY, AND ENTRUST THOSE NEXT IN LINE WITH THE SAME DUTY OF GIVING MEANING TO US! THAT IS THE SOLE WAY WE CAN OPPOSE THIS CRUEL WORLD! RAGE, MY SOLDIERS! SCREAM, MY SOLDIERS! FIGHT, MY SOLDIERS!!!",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 3,
+    "image": "https://cdn1.dotesports.com/wp-content/uploads/2020/09/02125331/TopBanner_com.innersloth.spacemafia.jpg",
+    "postedOn": "12h",
+    "description": "Red is SUS...",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 4,
+    "image": "https://www.thewrap.com/wp-content/uploads/2021/08/Matrix-Reloaded-Keanu-Reeves-936x527.jpg",
+    "postedOn": "12h",
+    "description": "Welcome to the matrix, Neo!",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 5,
+    "image": "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Mikasa-Ackermann.Attack-on-Titan.webp",
+    "postedOn": "12h",
+    "description": "The world is cruel, but is also beautiful!",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 6,
+    "image": "https://cdn1.dotesports.com/wp-content/uploads/2020/09/02125331/TopBanner_com.innersloth.spacemafia.jpg",
+    "postedOn": "12h",
+    "description": "Red is SUS...",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 7,
+    "image": "https://www.nme.com/wp-content/uploads/2021/04/assassins-creed-2@2000x1270.jpg",
+    "postedOn": "12h",
+    "description": "Nothing is true, everything is permitted.",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 8,
+    "image": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/10/19/11/attack-on-titan.jpg?quality=75&width=982&height=726&auto=webp",
+    "postedOn": "12h",
+    "description": "The world is cruel, but is also beautiful!",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 9,
+    "image": "https://wegotthiscovered.com/wp-content/uploads/2021/06/Erwin-Smith.jpg",
+    "postedOn": "12h",
+    "description": "All men die sooner or later. Does that mean all life is meaningless? Was there no purpose to any of us ever being born? And if so, would you say the same of our dead comrades? Were all of their lives... meaningless? NO, ABSOLUTELY NOT! IT IS UP TO US TO GIVE MEANING TO OUR COMRADES' DEATHS! THOSE BRAVE FALLEN MEN AND WOMEN! THOSE POOR FALLEN MEN AND WOMEN! THE ONLY ONES WHO ARE CAPABLE OF PAYING RESPECT TO THEM, ARE WE, THE LIVING! WE TOO SHALL ALL DIE HERE TODAY, AND ENTRUST THOSE NEXT IN LINE WITH THE SAME DUTY OF GIVING MEANING TO US! THAT IS THE SOLE WAY WE CAN OPPOSE THIS CRUEL WORLD! RAGE, MY SOLDIERS! SCREAM, MY SOLDIERS! FIGHT, MY SOLDIERS!!!",
+    "visibility": "PUBLIC",
+    "postedBy": 111
+  },
+  {
+    "_id": 10,
+    "image": "https://www.thewrap.com/wp-content/uploads/2021/08/Matrix-Reloaded-Keanu-Reeves-936x527.jpg",
+    "postedOn": "12h",
+    "description": "Welcome to the matrix, Neo!",
+    "visibility": "PRIVATE",
+    "postedBy": 111
+  },
+  {
+    "_id": 11,
+    "image": "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Mikasa-Ackermann.Attack-on-Titan.webp",
+    "postedOn": "12h",
+    "description": "The world is cruel, but is also beautiful!",
+    "visibility": "PRIVATE",
+    "postedBy": 111
+  },
+  {
+    "_id": 12,
+    "image": "https://cdn1.dotesports.com/wp-content/uploads/2020/09/02125331/TopBanner_com.innersloth.spacemafia.jpg",
+    "postedOn": "12h",
+    "description": "Red is SUS...",
+    "visibility": "PRIVATE",
+    "postedBy": 111
+  }
+]
