@@ -5,7 +5,7 @@ import {Routes, Route, BrowserRouter} from "react-router-dom";
 import Home from "../home";
 import Bookmarks from "../bookmarks";
 import Profile from "../profile";
-import './tuiter.css'
+import './tuiter.css';
 import EditProfile from "../profile/edit-profile";
 import Explore from "../explore";
 import Notifications from "../notifications";
@@ -15,6 +15,8 @@ import More from "../more";
 import {Login} from "../profile/login";
 import Signup from "../profile/signup";
 import Chat from "../messages/chat";
+import Stories from "../stories";
+import ViewStory from "../stories/view-story";
 
 function Tuiter () {
   return(
@@ -42,6 +44,8 @@ function Tuiter () {
               <Route path="profile/*" element={<Profile/>}/>
               <Route path="profile/edit" element={<EditProfile/>}/>
               <Route path="more" element={<More/>}/>
+              <Route path="stories" element={<Stories />} />
+              <Route path="stories/:sid/view" element={<ViewStory />} />
             </Routes>
           </div>
           <div className="ttr-right-column">

@@ -1,0 +1,25 @@
+.user-overlap {
+  top: -25px;
+  left: 7px;
+  position: relative;
+  color: rgb(255, 255, 255);
+}
+
+.story-item {
+  height: 125px;
+  width: -webkit-fill-available;
+}
+
+.close-btn {
+  color: #383232;
+}
+
+.profile-img {
+  height: 48px;
+  width: 48px;
+  border-radius: 25px;
+}
+
+.font-large {
+  font-size: larger;
+}
