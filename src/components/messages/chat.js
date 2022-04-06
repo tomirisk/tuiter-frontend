@@ -3,7 +3,6 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import MessageItem from "./message-item";
 import * as messageService from "../../services/messages-service";
 import * as service from "../../services/auth-service";
-import {getMessages} from "../../services/messages-service";
 
 /**
  * Represents the chat component of the messages section
@@ -19,17 +18,12 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const [attachment, setAttachment] = useState(null);
 
-  console.log(recipient)
-
-
-
   /**
    * Sends message using message service
    */
   const send = () => {
     messageService.sendMessage("me", recipient._id, message, attachment);
   }
-
 
   // TODO : Subscribe for Firebase event. When event received, call refreshMessages()
   /**

@@ -13,7 +13,6 @@ const MessageItem = ({messageItem, me}) => {
    * Downloads the attachment in the message item
    */
   const download = () => {
-
     //mediaService.get(messageItem.attachmentKey);
     // TODO : replace with the above call after configuring S3
     fetch(messageItem.attachment)
@@ -34,8 +33,6 @@ const MessageItem = ({messageItem, me}) => {
     const deleteMessage = () => {
         messageService.deleteMessage(messageItem._id);
   }
-
-
 
     return(
     <li className="list-group-item border-0">

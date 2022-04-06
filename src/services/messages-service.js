@@ -5,7 +5,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const api = axios.create({withCredentials: true});
 const MESSAGES_API = `${BASE_URL}/api/messages`;
 
-
 /**
  * Sends a message
  * @param sender sender user id
@@ -30,9 +29,7 @@ export const sendMessage = async (sender, recipient, message, attachment) => {
 * @param message message to send
 */
 export const deleteMessage = async (mid) => {
-  console.log(mid)
   const DELETE_API = `${MESSAGES_API}/${mid}`;
-  // api.delete(`${MESSAGES_API}/${mid}`).then(response => response.data);
   const response = await api.delete(DELETE_API);
   return response.data;
 }
