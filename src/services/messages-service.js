@@ -23,7 +23,6 @@ export const sendMessage = async (sender, recipient, message, attachment) => {
   return response.data;
 }
 
-
 /**
 * delete a message
 * @param message message to send
@@ -33,8 +32,6 @@ export const deleteMessage = async (mid) => {
   const response = await api.delete(DELETE_API);
   return response.data;
 }
-
-
 
 /**
  * Fetches the list of messages exchanges between two users

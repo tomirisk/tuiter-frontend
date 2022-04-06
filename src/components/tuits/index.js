@@ -3,7 +3,6 @@ import './tuits.css';
 import Tuit from "./tuit";
 import * as likesService from "../../services/likes-service";
 import * as dislikesService from "../../services/dislikes-service";
-import * as service from "../../services/tuits-service";
 
 function Tuits({tuits = [], deleteTuit, refreshTuits}) {
   const likeTuit = (tuit) => likesService.userTogglesTuitLikes("me", tuit._id)
