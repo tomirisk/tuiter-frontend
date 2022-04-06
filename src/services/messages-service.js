@@ -15,7 +15,7 @@ export const sendMessage = async (sender, recipient, message, attachment) => {
   const SEND_MESSAGE_API = `${BASE_URL}/api/users/${sender}/messages/${recipient}`;
   const messageParams = {message};
   if (attachment) {
-    messageParams.attachmentKey = mediaService.upload(attachment);
+    messageParams.attachmentKey = await mediaService.upload(attachment);
   }
 
   const response = await api.post(SEND_MESSAGE_API, messageParams);

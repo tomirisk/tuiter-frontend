@@ -75,7 +75,7 @@ const Chat = () => {
                       onChange={(event) => setMessage(event.target.value)}>
             </textarea>
             <div className="d-flex flex-column justify-content-around">
-              <label className="me-2 mt-2 btn rounded-circle bg-secondary bg-opacity-25"
+              <label className={`me-2 mt-2 btn rounded-circle bg-secondary bg-opacity-25 ${message ? '' : 'disabled'}`}
                      onClick={send}><i className="fa fa-paper-plane"/></label>
               {
                 attachment ?
