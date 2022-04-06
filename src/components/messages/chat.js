@@ -19,6 +19,8 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const [attachment, setAttachment] = useState(null);
 
+  console.log(recipient)
+
 
 
   /**

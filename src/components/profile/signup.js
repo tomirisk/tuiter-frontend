@@ -9,6 +9,12 @@ const Signup = () => {
   return (
     <div>
       <h1>Signup</h1>
+        <input onChange={(e) => setNewUser({...newUser, firstName: e.target.value})}
+               placeholder="First Name"
+               className="mb-2 form-control"/>
+        <input onChange={(e) => setNewUser({...newUser, lastName: e.target.value})}
+               placeholder="Last Name"
+               className="mb-2 form-control"/>
       <input onChange={(e) => setNewUser({...newUser, username: e.target.value})}
              placeholder="Username"
              className="mb-2 form-control"/>
