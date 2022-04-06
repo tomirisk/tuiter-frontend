@@ -21,7 +21,8 @@ const Messages = () => {
   const setChatList = (searchValue) => {
     const chatsToDisplay = users.filter(user =>
       (user.firstName && user.firstName.toLowerCase().includes(searchValue.toLowerCase())) ||
-      (user.lastName && user.lastName.toLowerCase().includes(searchValue.toLowerCase())))
+      (user.lastName && user.lastName.toLowerCase().includes(searchValue.toLowerCase())) ||
+        (user.username && user.username.toLowerCase().includes(searchValue.toLowerCase())))
     setChats(chatsToDisplay);
   }
 
