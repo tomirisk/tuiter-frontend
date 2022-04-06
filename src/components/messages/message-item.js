@@ -52,11 +52,6 @@ const MessageItem = ({messageItem, me}) => {
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25">
                 {messageItem.message}
               </div>
-                {/*<div>*/}
-                {/*<label className="me-2 mt-2 btn rounded-circle "*/}
-                {/*       onClick={deleteMessage}><i className="fa fa-trash-can"/></label>*/}
-                {/*</div>*/}
-
             </div>
         )
       }
