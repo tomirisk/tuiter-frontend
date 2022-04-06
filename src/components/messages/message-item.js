@@ -54,7 +54,7 @@ const MessageItem = ({messageItem, me}) => {
               </div>
                 <div>
                 <label className="me-2 mt-2 btn rounded-circle "
-                       onClick={deleteMessage}><i className="fa fa-remove"/></label>
+                       onClick={deleteMessage}><i className="fa fa-trash-can"/></label>
                 </div>
 
             </div>
@@ -74,7 +74,7 @@ const MessageItem = ({messageItem, me}) => {
             <div className="w-100 d-flex justify-content-end">
                 <div>
                     <label className="me-2 mt-2 btn rounded-circle "
-                           onClick={deleteMessage}><i className="fa fa-remove"/></label>
+                           onClick={deleteMessage}><i className="fa fa-trash-can"/></label>
                 </div>
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25">
                 {messageItem.message}
