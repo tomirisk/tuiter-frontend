@@ -25,7 +25,7 @@ export const sendMessage = async (sender, recipient, message, attachment) => {
 
 /**
 * delete a message
-* @param message message to send
+* @param mid message id to locate message to be deleted
 */
 export const deleteMessage = async (mid) => {
   const DELETE_API = `${MESSAGES_API}/${mid}`;
