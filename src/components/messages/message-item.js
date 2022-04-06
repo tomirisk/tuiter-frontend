@@ -1,5 +1,6 @@
 import React from "react";
 import * as mediaService from '../../services/media-service';
+import * as messageService from "../../services/messages-service";
 
 /**
  * Represents the message component of the chat section
@@ -12,6 +13,7 @@ const MessageItem = ({messageItem, me}) => {
    * Downloads the attachment in the message item
    */
   const download = () => {
+
     //mediaService.get(messageItem.attachmentKey);
     // TODO : replace with the above call after configuring S3
     fetch(messageItem.attachment)
@@ -29,11 +31,17 @@ const MessageItem = ({messageItem, me}) => {
       });
   }
 
-  return(
+    const deleteMessage = () => {
+        messageService.deleteMessage(messageItem._id);
+  }
+
+
+
+    return(
     <li className="list-group-item border-0">
       {
         messageItem.recipient === me._id && (
-          messageItem.attachment ?
+          messageItem.attachmentKey ?
             <div className="w-100 d-flex">
               <img className="avatar me-2" src="/images/alice.jpg" alt=""/>
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25 d-flex align-items-center">
@@ -47,12 +55,17 @@ const MessageItem = ({messageItem, me}) => {
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25">
                 {messageItem.message}
               </div>
+                <div>
+                <label className="me-2 mt-2 btn rounded-circle "
+                       onClick={deleteMessage}><i className="fa fa-remove"/></label>
+                </div>
+
             </div>
         )
       }
       {
         messageItem.sender === me._id && (
-          messageItem.attachment ?
+          messageItem.attachmentKey ?
             <div className="w-100 d-flex justify-content-end">
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25 d-flex align-items-center">
                 <div className="px-2 round-icon bg-secondary bg-opacity-50" onClick={download}><i className="fa fa-download"/></div>
@@ -62,6 +75,10 @@ const MessageItem = ({messageItem, me}) => {
             </div>
             :
             <div className="w-100 d-flex justify-content-end">
+                <div>
+                    <label className="me-2 mt-2 btn rounded-circle "
+                           onClick={deleteMessage}><i className="fa fa-remove"/></label>
+                </div>
               <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25">
                 {messageItem.message}
               </div>

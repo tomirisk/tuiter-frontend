@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate, Route, Routes, Link} from "react-router-dom";
+import {useNavigate, Route, Routes, Link, useLocation} from "react-router-dom";
 import * as service from "../../services/auth-service";
 import MyTuits from "./my-tuits";
 import TuitsAndReplies from "./tuits-and-replies";
@@ -9,7 +9,8 @@ import MyDislikes from "./my-dislikes";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState({});
+    const location = useLocation();
+    const [profile, setProfile] = useState({});
   useEffect(() => {
     const loadProfile = async () => {
       try {
@@ -25,28 +26,87 @@ const Profile = () => {
   const logout = () => service.logout().then(() => navigate('/login'));
 
   return(
-    <div>
-      <h4>{profile.username}</h4>
-      <h6>@{profile.username}</h6>
-      <button onClick={logout}>Logout</button>
+      <div className="ttr-profile">
+          <div className="border border-bottom-0">
+              <h4 className="p-2 mb-0 pb-0 fw-bolder">
+                  {profile.username}
+                  <i className="fa fa-badge-check text-primary"></i></h4>
+              <span className="ps-2">67.6K Tuits</span>
+              <div className="mb-5 position-relative">
+                  <img className="w-100" src="../images/nasa-profile-header.jpg"/>
+                  <div className="bottom-0 left-0 position-absolute">
+                      <div className="position-relative">
+                          <img className="position-relative ttr-z-index-1 ttr-top-40px ttr-width-150px"
+                               src="../images/nasa-3.png"/>
+                      </div>
+                  </div>
+                  <Link to="/profile/edit"
+                        className="mt-2 me-2 btn btn-large btn-light border border-secondary fw-bolder rounded-pill fa-pull-right">
+                      Edit profile
+                  </Link>
+                  <button onClick={logout} className="mt-2 float-end btn btn-warning rounded-pill">
+                      Logout
+                  </button>
+              </div>
 
-      <ul className="mt-4 nav nav-pills nav-fill">
-        <li className="nav-item"><Link className={`nav-link`} to="/profile/mytuits">Tuits</Link></li>
-        <li className="nav-item"><Link className={`nav-link`} to="/profile/tuits-and-replies">Tuits & replies</Link></li>
-        <li className="nav-item"><Link className={`nav-link`} to="/profile/media">Media</Link></li>
-        <li className="nav-item"><Link className={`nav-link`} to="/profile/mylikes">Likes</Link></li>
-        <li className="nav-item"><Link className={`nav-link`} to="/profile/mydislikes">Dislikes</Link></li>
-      </ul>
-
-      <Routes>
-        <Route path="/mytuits" element={<MyTuits/>}/>
-        <Route path="/tuits-and-replies" element={<TuitsAndReplies/>}/>
-        <Route path="/media" element={<Media/>}/>
-        <Route path="/mylikes" element={<MyLikes/>}/>
-        <Route path="/mydislikes" element={<MyDislikes/>}/>
-      </Routes>
-
-    </div>
+              <div className="p-2">
+                  <h4 className="fw-bolder pb-0 mb-0">
+                      {profile.username}<i className="fa fa-badge-check text-primary"></i>
+                  </h4>
+                  <h6 className="pt-0">@{profile.username}</h6>
+                  <p className="pt-2">
+                      There's space for everybody. Sparkles
+                  </p>
+                  <p>
+                      <i className="fa fa-location-dot me-2"></i>
+                      Pale Blue Dot
+                      <i className="fa fa-link ms-3 me-2"></i>
+                      <a href="nasa.gov" className="text-decoration-none">nasa.gov</a>
+                      <i className="fa fa-birthday-cake ms-3 me-2"></i>
+                      Born October 1, 1958
+                      <br/>
+                      <i className="far fa-calendar me-2"></i>
+                      Joined December 2007
+                  </p>
+                  <b>178</b> Following
+                  <b className="ms-4">51.1M</b> Followers
+                  <ul className="mt-4 nav nav-pills nav-fill">
+                      <li className="nav-item">
+                          <Link to="/profile/mytuits"
+                                className={`nav-link ${location.pathname.indexOf('mytuits') >= 0 ? 'active':''}`}>
+                              Tuits</Link>
+                      </li>
+                      <li className="nav-item">
+                          <Link to="/profile/tuits-and-replies"
+                                className={`nav-link ${location.pathname.indexOf('tuits-and-replies') >= 0 ? 'active':''}`}>
+                              Tuits & replies</Link>
+                      </li>
+                      <li className="nav-item">
+                          <Link to="/profile/media"
+                                className={`nav-link ${location.pathname.indexOf('media') >= 0 ? 'active':''}`}>
+                              Media</Link>
+                      </li>
+                      <li className="nav-item">
+                          <Link to="/profile/likes"
+                                className={`nav-link ${location.pathname.indexOf('likes') >= 0 ? 'active':''}`}>
+                              Likes</Link>
+                      </li>
+                      <li className="nav-item">
+                          <Link to="/profile/dislike"
+                                className={`nav-link ${location.pathname.indexOf('dislike') >= 0 ? 'active':''}`}>
+                              Dislikes</Link>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <Routes>
+              <Route path="/mytuits" element={<MyTuits/>}/>
+              <Route path="/tuits-and-replies" element={<TuitsAndReplies/>}/>
+              <Route path="/media" element={<Media/>}/>
+              <Route path="/likes" element={<MyLikes/>}/>
+              <Route path="/dislike" element={<MyDislikes/>}/>
+          </Routes>
+      </div>
   );
 };
 export default Profile;

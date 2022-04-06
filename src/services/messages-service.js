@@ -3,6 +3,8 @@ import * as mediaService from './media-service';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const api = axios.create({withCredentials: true});
+const MESSAGES_API = `${BASE_URL}/api/messages`;
+
 
 /**
  * Sends a message
@@ -21,6 +23,21 @@ export const sendMessage = async (sender, recipient, message, attachment) => {
   const response = await api.post(SEND_MESSAGE_API, messageParams);
   return response.data;
 }
+
+
+/**
+* delete a message
+* @param message message to send
+*/
+export const deleteMessage = async (mid) => {
+  console.log(mid)
+  const DELETE_API = `${MESSAGES_API}/${mid}`;
+  // api.delete(`${MESSAGES_API}/${mid}`).then(response => response.data);
+  const response = await api.delete(DELETE_API);
+  return response.data;
+}
+
+
 
 /**
  * Fetches the list of messages exchanges between two users

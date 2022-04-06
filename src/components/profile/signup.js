@@ -20,7 +20,8 @@ const Signup = () => {
              type="email"
              placeholder="Email"
              className="mb-2 form-control"/>
-      <button onClick={signup}>Signup</button>
+      <button onClick={signup}
+              className="btn btn-primary mb-5">Signup</button>
     </div>
   );
 }
