@@ -1,6 +1,8 @@
 import React from "react";
 import * as mediaService from '../../services/media-service';
 import * as messageService from "../../services/messages-service";
+import "./index.css";
+
 
 /**
  * Represents the message component of the chat section
@@ -58,12 +60,12 @@ const MessageItem = ({messageItem, me}) => {
       {
         messageItem.sender === me._id && (
           messageItem.attachmentKey ?
-            <div className="w-100 d-flex justify-content-end">
+            <div className="w-100 d-flex justify-content-end ">
                 <div>
                     <label className="me-2 mt-2 btn rounded-circle "
                            onClick={deleteMessage}><i className="fa fa-trash-can"/></label>
                 </div>
-              <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25 d-flex align-items-center">
+              <div className="p-2 text-break overflow-auto sender-message-color d-flex align-items-center">
                 <div className="px-2 round-icon bg-secondary bg-opacity-50" onClick={download}><i className="fa fa-download"/></div>
                 <div className="ps-2">{messageItem.message}</div>
               </div>
@@ -75,7 +77,7 @@ const MessageItem = ({messageItem, me}) => {
                     <label className="me-2 mt-2 btn rounded-circle "
                            onClick={deleteMessage}><i className="fa fa-trash-can"/></label>
                 </div>
-              <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25">
+              <div className="p-2 text-break overflow-auto sender-message-color">
                 {messageItem.message}
               </div>
               <img className="avatar ms-2" src="/images/bob.jpg"/>
