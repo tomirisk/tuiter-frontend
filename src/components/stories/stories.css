@@ -23,3 +23,15 @@
 .font-large {
   font-size: larger;
 }
+
+.margin-left-8 {
+  margin-left: 8px;
+}
+
+.image-icon-color {
+  color: #0c63e4;
+}
+
+#fileInput{
+  display: none;
+}
