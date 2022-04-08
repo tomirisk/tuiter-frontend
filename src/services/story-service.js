@@ -1,4 +1,25 @@
+import axios from "axios";
+import * as mediaService from './media-service';
 import stories from "../data/stories.json";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+export const api = axios.create({withCredentials: true});
+
+/**
+ * Creates a story
+ * @param user user creating a story
+ * @param story story to be created
+ * @param image image of the story
+ * @returns {Promise<*>}
+ */
+export const createStory = async (user, story, image) => {
+  const CREATE_STORY_API = `${BASE_URL}/api/users/${user}/stories`;
+  const storyParams = {story};
+  storyParams.attachmentKey = await mediaService.upload(image);
+
+  const response = await api.post(CREATE_STORY_API, storyParams);
+  return response.data;
+}
 
 /**
  * Returns all stories from the database.
