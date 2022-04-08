@@ -1,6 +1,8 @@
 import React from "react";
-import * as mediaService from '../../services/media-service';
 import axios from "axios";
+import * as mediaService from '../../services/media-service';
+import * as messageService from "../../services/messages-service";
+import "./index.css";
 
 /**
  * Represents the message component of the chat section
@@ -31,7 +33,11 @@ const MessageItem = ({messageItem, me, recipient}) => {
     })
   }
 
-  return(
+    const deleteMessage = () => {
+        messageService.deleteMessage(messageItem._id);
+  }
+
+    return(
     <li className="list-group-item border-0">
       {
         messageItem.recipient === me._id && (
@@ -56,7 +62,11 @@ const MessageItem = ({messageItem, me, recipient}) => {
         messageItem.sender === me._id && (
           messageItem.attachmentKey ?
             <div className="w-100 d-flex justify-content-end align-items-center">
-              <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25 d-flex align-items-center">
+                <div>
+                    <label className="me-2 mt-2 btn rounded-circle "
+                           onClick={deleteMessage}><i className="fa fa-trash-can"/></label>
+                </div>
+              <div className="p-2 text-break overflow-auto sender-message-color d-flex align-items-center">
                 <div className="px-2 round-icon bg-secondary bg-opacity-50" onClick={download}><i className="fa fa-download"/></div>
                 <div className="ps-2">{messageItem.message}</div>
               </div>
@@ -64,7 +74,11 @@ const MessageItem = ({messageItem, me, recipient}) => {
             </div>
             :
             <div className="w-100 d-flex justify-content-end align-items-center">
-              <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25">
+                <div>
+                    <label className="me-2 mt-2 btn rounded-circle "
+                           onClick={deleteMessage}><i className="fa fa-trash-can"/></label>
+                </div>
+              <div className="p-2 text-break overflow-auto sender-message-color">
                 {messageItem.message}
               </div>
               <img className="avatar ms-2 bg-secondary bg-opacity-50" src={`https://avatars.dicebear.com/api/adventurer/${me.username}.svg`} alt=""/>

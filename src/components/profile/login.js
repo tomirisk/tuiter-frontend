@@ -22,7 +22,8 @@ export const Login = () => {
              type="password"
              placeholder="Password"
              className="mb-2 form-control"/>
-      <button onClick={login}>Login</button>
+      <button onClick={login}
+              className="btn btn-primary mb-5">Login</button>
     </div>
   );
 };
