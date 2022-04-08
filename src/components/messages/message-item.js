@@ -62,10 +62,8 @@ const MessageItem = ({messageItem, me, recipient}) => {
         messageItem.sender === me._id && (
           messageItem.attachmentKey ?
             <div className="w-100 d-flex justify-content-end align-items-center">
-                <div>
-                    <label className="me-2 mt-2 btn rounded-circle "
-                           onClick={deleteMessage}><i className="fa fa-trash-can"/></label>
-                </div>
+              <label className="btn rounded-circle"
+                     onClick={deleteMessage}><i className="fa-solid fa-trash-can"/></label>
               <div className="p-2 text-break overflow-auto sender-message-color d-flex align-items-center">
                 <div className="px-2 round-icon bg-secondary bg-opacity-50" onClick={download}><i className="fa fa-download"/></div>
                 <div className="ps-2">{messageItem.message}</div>
@@ -74,10 +72,8 @@ const MessageItem = ({messageItem, me, recipient}) => {
             </div>
             :
             <div className="w-100 d-flex justify-content-end align-items-center">
-                <div>
-                    <label className="me-2 mt-2 btn rounded-circle "
-                           onClick={deleteMessage}><i className="fa fa-trash-can"/></label>
-                </div>
+              <label className="btn rounded-circle"
+                     onClick={deleteMessage}><i className="fa-solid fa-trash-can"/></label>
               <div className="p-2 text-break overflow-auto sender-message-color">
                 {messageItem.message}
               </div>

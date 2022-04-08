@@ -22,7 +22,7 @@ const Chat = () => {
    * Sends message using message service
    */
   const send = () => {
-    if (attachment.size / (1024 * 1024) > 5) {
+    if (attachment && attachment.size / (1024 * 1024) > 5) {
       alert("Please select a file of size less than 5 MB");
       return;
     }
