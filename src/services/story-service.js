@@ -1,6 +1,5 @@
 import axios from "axios";
 import * as mediaService from './media-service';
-import stories from "../data/stories.json";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const api = axios.create({withCredentials: true});
@@ -15,7 +14,7 @@ export const api = axios.create({withCredentials: true});
 export const createStory = async (user, story, image) => {
   const CREATE_STORY_API = `${BASE_URL}/api/users/${user}/stories`;
   const storyParams = {story};
-  storyParams.attachmentKey = await mediaService.upload(image);
+  storyParams.image = await mediaService.upload(image);
 
   const response = await api.post(CREATE_STORY_API, storyParams);
   return response.data;
@@ -23,21 +22,28 @@ export const createStory = async (user, story, image) => {
 
 /**
  * Returns all stories from the database.
- * @returns {JSON} All stories as an array of JSON objects.
+ * @returns {Promise<*>} All stories as an array of JSON objects.
  */
-export const findAllStories = () => {
-  // Can use redux
-  console.log("GET request for fetching all stories associated with the user.");
+export const findAllStories = async () => {
+  const GET_STORIES_API = `${BASE_URL}/api/stories`;
+  const response = await api.get(GET_STORIES_API);
+  const stories = response.data;
+  await Promise.all(stories.map(async (story) => {
+    story.image = await mediaService.getURL(story.image);
+  }));
+
   return stories;
 };
 
 /**
  * Finds and returns the story object associated with the provided id.
- * @param {Number} sid ID of the story to be searched and returned from database.
- * @returns {JSON} story object.
+ * @param {string} sid ID of the story to be searched and returned from database.
+ * @returns {Promise<*>} story object.
  */
-export const findStoryById = (sid) => {
-  // Can use redux
-  console.log("GET request for fetching story by id");
-  return stories.filter((story) => story._id === parseInt(sid))[0];
+export const findStoryById = async (sid) => {
+  const GET_STORY_API = `${BASE_URL}/api/stories/${sid}`;
+  const response = await api.get(GET_STORY_API);
+  const story = response.data;
+  story.image = await mediaService.getURL(story.image);
+  return story;
 };
