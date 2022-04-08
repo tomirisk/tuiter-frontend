@@ -17,7 +17,7 @@ const Stories = () => {
   const [story, setStory] = useState(null);
 
   const create = () => {
-    storyService.createStory("me", story, image);
+    storyService.createStory("me", story, image)
   }
 
   return (
@@ -54,8 +54,8 @@ const Stories = () => {
         </div>
 
         <div className="mt-2 align-self-center margin-left-8">
-          <a className="btn btn-primary btn-sm rounded-pill fa-pull-right text-white
-               fw-bold ps-3 pe-3 bg-black border-0" onClick={create}>
+          <a className={`btn btn-primary btn-sm rounded-pill fa-pull-right text-white
+               fw-bold ps-3 pe-3 bg-black border-0 ${image ? '' : 'disabled'}`} onClick={create}>
             Create Story
           </a>
         </div>
