@@ -22,7 +22,14 @@ const Chat = () => {
    * Sends message using message service
    */
   const send = () => {
-    messageService.sendMessage("me", recipient._id, message, attachment);
+    if (attachment.size / (1024 * 1024) > 5) {
+      alert("Please select a file of size less than 5 MB");
+      return;
+    }
+
+    messageService.sendMessage("me", recipient._id, message.trim(), attachment).catch(err => {
+      alert("Something went wrong");
+    });
   }
 
   // TODO : Subscribe for Firebase event. When event received, call refreshMessages()
@@ -67,7 +74,7 @@ const Chat = () => {
           </div>
           <div className="h-100 overflow-auto">
             {
-              messages.map(message => <MessageItem key={message._id} messageItem={message} me={sender} />)
+              messages.map(message => <MessageItem key={message._id} messageItem={message} me={sender} recipient={recipient} />)
             }
           </div>
           <div className="d-flex">
@@ -75,7 +82,7 @@ const Chat = () => {
                       onChange={(event) => setMessage(event.target.value)}>
             </textarea>
             <div className="d-flex flex-column justify-content-around">
-              <label className="me-2 mt-2 btn rounded-circle bg-secondary bg-opacity-25"
+              <label className={`me-2 mt-2 btn rounded-circle bg-secondary bg-opacity-25 ${message.trim() ? '' : 'disabled'}`}
                      onClick={send}><i className="fa fa-paper-plane"/></label>
               {
                 attachment ?

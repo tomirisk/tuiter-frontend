@@ -57,8 +57,8 @@ const Messages = () => {
           chats.map && chats.map(chat => {
             return (
               <Link to="chat" key={chat.username} state={{chat}} className="list-group-item bg-secondary bg-opacity-25">
-                <div className="w-100 d-flex">
-                  <img className="avatar me-2" src="/images/alice.jpg" alt=""/>
+                <div className="w-100 d-flex align-items-center">
+                  <img className="avatar me-2 bg-secondary bg-opacity-50" src={`https://avatars.dicebear.com/api/adventurer/${chat.username}.svg`} alt=""/>
                   <div className="p-2 text-break overflow-auto">
                     <span>@{chat.username} - {chat.firstName} {chat.lastName}</span>
                   </div>
