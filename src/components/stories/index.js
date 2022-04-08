@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import StoryItem from "./story-item";
 import { findAllStories } from "../../services/story-service";
 import * as storyService from "../../services/story-service";
@@ -9,12 +9,17 @@ import "./stories.css";
  * @returns {JSX.Element} react component
  */
 const Stories = () => {
-  const stories = findAllStories();
-  const privateStories = stories.filter((s) => s.visibility === "PRIVATE");
-  const publicStories = stories.filter((s) => s.visibility === "PUBLIC");
-
+  const [privateStories, setPrivateStories] = useState([]);
+  const [publicStories, setPublicStories] = useState([]);
   const [image, setImage] = useState(null);
   const [story, setStory] = useState(null);
+
+  useEffect(() => {
+    findAllStories().then((stories) => {
+      setPrivateStories(stories.filter((story) => story.visibility === "PRIVATE"));
+      setPublicStories(stories.filter((story) => story.visibility === "PUBLIC"));
+    });
+  }, []);
 
   const create = () => {
     storyService.createStory("me", story, image)
@@ -65,14 +70,14 @@ const Stories = () => {
       <h2>Close Friends</h2>
       <div className="row">
         {privateStories.map((story) => (
-          <StoryItem story={story} />
+          <StoryItem story={story} key={story._id} />
         ))}
       </div>
       <hr />
       <h2>Friends</h2>
       <div className="row">
         {publicStories.map((story) => (
-          <StoryItem story={story} />
+          <StoryItem story={story} key={story._id} />
         ))}
       </div>
     </div>
