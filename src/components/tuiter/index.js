@@ -17,6 +17,7 @@ import Signup from "../profile/signup";
 import Chat from "../messages/chat";
 import Stories from "../stories";
 import ViewStory from "../stories/view-story";
+import Broadcast from "../messages/broadcast";
 
 function Tuiter () {
   return(
@@ -39,6 +40,7 @@ function Tuiter () {
               <Route path="notifications" element={<Notifications/>}/>
               <Route path="messages" element={<Messages/>}/>
               <Route path="messages/chat" element={<Chat/>}/>
+              <Route path="messages/broadcast" element={<Broadcast/>}/>
               <Route path="bookmarks" element={<Bookmarks/>}/>
               <Route path="lists" element={<Lists/>}/>
               <Route path="profile/*" element={<Profile/>}/>
