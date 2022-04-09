@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["http://localhost:3000", "http://localhost"],
+    "origin": ["http://localhost:3000", "http://localhost", "https://singular-meringue-7fdc2d.netlify.app", "https://main--singular-meringue-7fdc2d.netlify.app"],
     "method": ["GET"],
     "maxAgeSeconds": 3600
   }
