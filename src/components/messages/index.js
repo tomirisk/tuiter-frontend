@@ -48,10 +48,11 @@ const Messages = () => {
   return(
     <>
       <ul className="list-group">
-        <li className="list-group-item">
+        <li className="list-group-item d-flex align-items-center">
           <input className="form-control rounded-pill bg-secondary bg-opacity-25"
                  placeholder="Search recipient"
                  onChange={(event) => setChatList(event.target.value)} />
+          <Link to="broadcast"><i className="fa-solid fa-bullhorn ms-3" /></Link>
         </li>
         {
           chats.map && chats.map(chat => {

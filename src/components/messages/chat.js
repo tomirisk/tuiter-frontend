@@ -3,6 +3,8 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import MessageItem from "./message-item";
 import * as messageService from "../../services/messages-service";
 import * as service from "../../services/auth-service";
+import MessageInput from "./message-input";
+import "./index.css";
 
 /**
  * Represents the chat component of the messages section
@@ -15,13 +17,11 @@ const Chat = () => {
   const [sender, setSender] = useState(null);
   const [recipient, setRecipient] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("");
-  const [attachment, setAttachment] = useState(null);
 
   /**
    * Sends message using message service
    */
-  const send = () => {
+  const send = (message, attachment) => {
     if (attachment && attachment.size / (1024 * 1024) > 5) {
       alert("Please select a file of size less than 5 MB");
       return;
@@ -49,6 +49,9 @@ const Chat = () => {
       messageService.getMessages("me", recipient._id).then(messages => {
         messages.sort((message1, message2) => new Date(message1.sentOn).getTime() - new Date(message2.sentOn).getTime());
         setMessages(messages);
+
+        const element = document.getElementById("messages-scroll-view");
+        element.scrollTop = element.scrollHeight;
       });
     }).catch(e => {
       navigate('/login', {
@@ -72,34 +75,12 @@ const Chat = () => {
             <Link to="/messages"><i className="fa fa-angle-left ps-2 pe-4 text-black" /></Link>
             <h3>@{recipient.username} - {recipient.firstName} {recipient.lastName}</h3>
           </div>
-          <div className="h-100 overflow-auto">
+          <div id="messages-scroll-view" className="h-100 overflow-auto">
             {
               messages.map(message => <MessageItem key={message._id} messageItem={message} me={sender} recipient={recipient} />)
             }
           </div>
-          <div className="d-flex">
-            <textarea className="m-2 w-100 form-control bg-secondary bg-opacity-25"
-                      onChange={(event) => setMessage(event.target.value)}>
-            </textarea>
-            <div className="d-flex flex-column justify-content-around">
-              <label className={`me-2 mt-2 btn rounded-circle bg-secondary bg-opacity-25 ${message.trim() ? '' : 'disabled'}`}
-                     onClick={send}><i className="fa fa-paper-plane"/></label>
-              {
-                attachment ?
-                <label onClick={() => setAttachment(null)} className="me-2 my-2 btn rounded-circle bg-primary text-white">
-                  <i className="fa fa-remove"/>
-                </label>
-                :
-                <div>
-                  <label htmlFor="attachment" className="me-2 my-2 btn rounded-circle bg-secondary bg-opacity-25">
-                    <i className="fa fa-paperclip"/>
-                  </label>
-                  <input id="attachment" type="file" className="d-none"
-                         onChange={(event) => setAttachment(event.target.files[0])}/>
-                </div>
-              }
-            </div>
-          </div>
+          <MessageInput sendHandler={send} />
         </div>
       }
     </>
