@@ -1,10 +1,19 @@
 import React, {useState} from "react";
 import "./index.css";
 
+/**
+ * A reusable component with a text field to enter message and an option to attach a file
+ * @param sendHandler handler to execute when send button is clicked
+ * @returns {JSX.Element} React component
+ * @constructor
+ */
 const MessageInput = ({sendHandler}) => {
   const [message, setMessage] = useState("");
   const [attachment, setAttachment] = useState(null);
 
+  /**
+   * Calls the sendHandler
+   */
   const send = () => {
     sendHandler(message.trim(), attachment);
   }

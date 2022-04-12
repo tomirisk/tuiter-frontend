@@ -1,31 +1,39 @@
 import React from "react";
+import Select from "react-select";
 
-const MultiSelectUsers = ({users, checkHandler, uncheckHandler}) => {
-  const toggleSelect = (checked, id) => {
-    if (checked) {
-      checkHandler(id);
-    } else {
-      uncheckHandler(id);
-    }
+/**
+ * Component that provides a way to multi-select users
+ * @param users users to select from
+ * @param onChange handler to execute when selection changes
+ * @returns {JSX.Element} React component
+ * @constructor
+ */
+const MultiSelectUsers = ({users, onChange}) => {
+
+  /**
+   * Builds a label for user object
+   * @param user the user object
+   * @returns {string} label
+   */
+  const getLabel = (user) => `@${user.username} - ${user.firstName ? user.firstName : ''} ${user.lastName ? user.lastName : ''}`;
+
+  /**
+   * Returns the list of options to populate
+   */
+  const options = users.map(user => { return {value: user, label: getLabel(user)}});
+
+  /**
+   * Executes the onChange handler when selection changes
+   * @param selectedOptions selected Options
+   */
+  const handleChange = (selectedOptions) => {
+    const selectedUsers = selectedOptions.map(selectedOption => selectedOption.value);
+    onChange(selectedUsers);
   }
 
   return(
     <>
-      <ul className="list-group m-2">
-        {
-          users && users.map(user =>
-            <li className="list-group-item" key={user._id}>
-             <div className="w-100 d-flex align-items-center">
-               <input type="checkbox" onChange={(event) => toggleSelect(event.target.checked, user._id)} />
-               <img className="avatar mx-2 bg-secondary bg-opacity-50" src={`https://avatars.dicebear.com/api/adventurer/${user.username}.svg`} alt=""/>
-               <div className="text-break overflow-auto">
-                 <span>@{user.username} - {user.firstName} {user.lastName}</span>
-               </div>
-             </div>
-            </li>
-          )
-        }
-      </ul>
+      <Select options={options} isMulti className="mx-2" onChange={handleChange} />
     </>
   );
 }
