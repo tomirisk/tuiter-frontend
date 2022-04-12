@@ -45,6 +45,24 @@ export const getMessages = async (sender, recipient) => {
   return [...sentMessages, ...receivedMessages];
 }
 
+/**
+ * Sends a broadcast message
+ * @param senderId sender user id
+ * @param recipientIds recipient user ids
+ * @param message message to send
+ * @param attachment attachment to send
+ */
+export const sendBroadcastMessage = async (senderId, recipientIds, message, attachment) => {
+  const SEND_MESSAGE_API = `${BASE_URL}/api/users/${senderId}/messages`;
+  const messageParams = {message, recipientIds};
+  if (attachment) {
+    messageParams.attachmentKey = await mediaService.upload(attachment);
+  }
+
+  const response = await api.post(SEND_MESSAGE_API, messageParams);
+  return response.data;
+}
+
 const getMessagesFromServer = async (sender, recipient) => {
   const GET_SENT_MESSAGES_API = `${BASE_URL}/api/users/${sender}/messages/${recipient}`;
   const response = await api.get(GET_SENT_MESSAGES_API);

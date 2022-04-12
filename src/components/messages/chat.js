@@ -5,6 +5,9 @@ import * as messageService from "../../services/messages-service";
 import * as service from "../../services/auth-service";
 import MessageInput from "./message-input";
 import "./index.css";
+import { io } from "socket.io-client";
+
+const socket = io(process.env.REACT_APP_BASE_URL);
 
 /**
  * Represents the chat component of the messages section
@@ -27,12 +30,13 @@ const Chat = () => {
       return;
     }
 
-    messageService.sendMessage("me", recipient._id, message.trim(), attachment).catch(err => {
+    messageService.sendMessage("me", recipient._id, message.trim(), attachment)
+      .then(() => refreshMessages()).catch(err => {
+      console.log(err);
       alert("Something went wrong");
     });
   }
 
-  // TODO : Subscribe for Firebase event. When event received, call refreshMessages()
   /**
    * Refreshes the list of messages
    */
@@ -49,10 +53,9 @@ const Chat = () => {
       messageService.getMessages("me", recipient._id).then(messages => {
         messages.sort((message1, message2) => new Date(message1.sentOn).getTime() - new Date(message2.sentOn).getTime());
         setMessages(messages);
-
-        const element = document.getElementById("messages-scroll-view");
-        element.scrollTop = element.scrollHeight;
       });
+
+      subscribeForUpdates(sender);
     }).catch(e => {
       navigate('/login', {
         state: {
@@ -62,9 +65,28 @@ const Chat = () => {
     });
   }
 
+  /**
+   * Subscribe on socket.io for updates
+   */
+  const subscribeForUpdates = (sender) => {
+    try {
+      socket.removeAllListeners(sender._id);
+      socket.on(sender._id, (args) => refreshMessages());
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   useEffect(() => {
     refreshMessages();
   }, []);
+
+  useEffect(() => {
+    const element = document.getElementById("messages-scroll-view");
+    if (element) {
+      element.scrollTop = element.scrollHeight;
+    }
+  }, [messages]);
 
   return(
     <>
