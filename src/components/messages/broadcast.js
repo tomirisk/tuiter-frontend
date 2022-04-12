@@ -32,10 +32,9 @@ const Broadcast = () => {
       return;
     }
 
-    // TODO : To be implemented
-    // messageService.sendBroadcastMessage("me", selectedUserIds, message.trim(), attachment).catch(err => {
-    //   alert("Something went wrong");
-    // });
+    messageService.sendBroadcastMessage("me", selectedUserIds, message.trim(), attachment).catch(err => {
+      alert("Something went wrong");
+    });
   }
 
   const selectUser = (id) => {
