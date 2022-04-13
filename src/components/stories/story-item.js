@@ -16,7 +16,7 @@ const StoryItem = ({ story }) => {
             <img src={`${story.image}`} className="card-img-top story-item" />
           </Link>
           <div className="card-body">
-            <span className="fw-bold">Username</span>
+            {story.postedBy && story.postedBy.username && <span className="fw-bold">{story.postedBy.username}</span>}
           </div>
         </div>
       </div>
