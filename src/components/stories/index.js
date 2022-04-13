@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import StoryItem from "./story-item";
 import { findAllStories } from "../../services/story-service";
 import * as storyService from "../../services/story-service";
+import * as authService from "../../services/auth-service";
 import "./stories.css";
 
 /**
@@ -9,15 +11,24 @@ import "./stories.css";
  * @returns {JSX.Element} react component
  */
 const Stories = () => {
+  const navigate = useNavigate();
   const [privateStories, setPrivateStories] = useState([]);
   const [publicStories, setPublicStories] = useState([]);
   const [image, setImage] = useState(null);
   const [story, setStory] = useState(null);
 
   useEffect(() => {
-    findAllStories().then((stories) => {
-      setPrivateStories(stories.filter((story) => story.visibility === "PRIVATE"));
-      setPublicStories(stories.filter((story) => story.visibility === "PUBLIC"));
+    authService.profile().then(me => {
+      findAllStories().then((stories) => {
+        setPrivateStories(stories.filter((story) => story.visibility === "PRIVATE"));
+        setPublicStories(stories.filter((story) => story.visibility === "PUBLIC"));
+      });
+    }).catch(e => {
+      navigate('/login', {
+        state: {
+          redirect: '/stories',
+        }
+      })
     });
   }, []);
 
