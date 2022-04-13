@@ -4,7 +4,7 @@ import * as service from "../../services/auth-service";
 import * as userService from "../../services/users-service";
 import {useNavigate} from "react-router-dom";
 import "./index.css";
-import MultiSelectUsers from "./multi-select-users";
+import MultiSelectUsers from "../multi-select-users";
 import * as messageService from "../../services/messages-service";
 
 /**

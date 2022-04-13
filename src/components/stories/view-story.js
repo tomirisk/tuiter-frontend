@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { findStoryById } from "../../services/story-service";
 import * as authService from "../../services/auth-service";
 
@@ -12,12 +12,11 @@ const ViewStory = () => {
   const [story, setStory] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    authService.profile().then(me => {
+    const timerPromise = authService.profile().then(me => {
       findStoryById(sid).then((data) => setStory(data));
-      const timer = setTimeout(() => {
-        navigate("/stories");
+      return setTimeout(() => {
+        navigate(-1);
       }, 15000);
-      return () => clearTimeout(timer);
     }).catch(e => {
       navigate('/login', {
         state: {
@@ -25,6 +24,11 @@ const ViewStory = () => {
         }
       })
     });
+    return () => {
+      timerPromise.then(timer => {
+        clearTimeout(timer);
+      });
+    };
   }, []);
   return (
     <>
@@ -33,15 +37,11 @@ const ViewStory = () => {
         <div className="mt-2">
           {/* The div content will be dynamic after integrating with the user component */}
           <div className="m-2">
-            <Link to={"/stories"}>
-              <span className="float-end">
+            <span className="float-end" onClick={() => navigate(-1)}>
                 <i className="fa-solid fa-2x fa-circle-xmark close-btn"></i>
-              </span>
-            </Link>
-            <img src="https://d.newsweek.com/en/full/1955557/attack-titan.jpg"
-                 className="profile-img" />
+            </span>
+            <img src={`https://avatars.dicebear.com/api/adventurer/${story.postedBy.username}.svg`} className="profile-img bg-secondary bg-opacity-50" />
             {
-              story.postedBy && story.postedBy.username &&
               <span className="fw-bold ms-3 me-2 font-large">{story.postedBy.username}</span>
             }
             <span className="fw-bold">&middot;</span>

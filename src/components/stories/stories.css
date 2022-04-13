@@ -24,10 +24,6 @@
   font-size: larger;
 }
 
-.margin-left-8 {
-  margin-left: 8px;
-}
-
 .image-icon-color {
   color: #0c63e4;
 }
@@ -36,3 +32,14 @@
   display: none;
 }
 
+.my-story span {
+  max-width: 0;
+  visibility: hidden;
+  white-space: nowrap;
+  transition: max-width 0.5s;
+}
+
+.my-story:hover span {
+  max-width: 10rem;
+  visibility: visible;
+}

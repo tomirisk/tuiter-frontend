@@ -18,6 +18,7 @@ import Chat from "../messages/chat";
 import Stories from "../stories";
 import ViewStory from "../stories/view-story";
 import Broadcast from "../messages/broadcast";
+import MyStories from "../stories/my-stories";
 
 function Tuiter () {
   return(
@@ -48,6 +49,7 @@ function Tuiter () {
               <Route path="more" element={<More/>}/>
               <Route path="stories" element={<Stories />} />
               <Route path="stories/:sid/view" element={<ViewStory />} />
+              <Route path="stories/my-stories" element={<MyStories />} />
             </Routes>
           </div>
           <div className="ttr-right-column">
