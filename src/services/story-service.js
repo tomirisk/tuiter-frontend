@@ -13,8 +13,10 @@ export const api = axios.create({withCredentials: true});
  */
 export const createStory = async (user, story, image) => {
   const CREATE_STORY_API = `${BASE_URL}/api/users/${user}/stories`;
-  const storyParams = {story};
-  storyParams.image = await mediaService.upload(image);
+  const storyParams = {
+    description: story,
+    image: await mediaService.upload(image)
+  };
 
   const response = await api.post(CREATE_STORY_API, storyParams);
   return response.data;

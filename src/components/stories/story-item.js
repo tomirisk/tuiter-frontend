@@ -12,11 +12,11 @@ const StoryItem = ({ story }) => {
     <>
       <div className="col-4">
         <div className="card mt-2 mb-2">
-          <Link to={`${story._id}/view`}>
+          <Link to={`/stories/${story._id}/view`}>
             <img src={`${story.image}`} className="card-img-top story-item" />
           </Link>
           <div className="card-body">
-            {story.postedBy && story.postedBy.username && <span className="fw-bold">{story.postedBy.username}</span>}
+            {story.postedBy.username && <span className="fw-bold">{story.postedBy.username}</span>}
           </div>
         </div>
       </div>
