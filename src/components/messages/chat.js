@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import MessageItem from "./message-item";
-import * as messageService from "../../services/messages-service";
-import * as service from "../../services/auth-service";
-import MessageInput from "./message-input";
-import "./index.css";
 import { io } from "socket.io-client";
+import "./index.css";
+import MessageInput from "./message-input";
 import MessageList from "./message-list";
 import PinnedMessages from "./pinned-messages";
+import * as messageService from "../../services/messages-service";
+import { scrollToBottom, refreshMessagesUI } from "./ui-helper";
 
 const socket = io(process.env.REACT_APP_BASE_URL);
 
@@ -33,8 +32,7 @@ const Chat = () => {
       return;
     }
 
-    messageService
-      .sendMessage("me", recipient._id, message.trim(), attachment)
+    messageService.sendMessage("me", recipient._id, message.trim(), attachment)
       .then(() => refreshMessages())
       .catch((err) => {
         console.log(err);
@@ -46,58 +44,22 @@ const Chat = () => {
    * Refreshes the list of messages
    */
   const refreshMessages = () => {
-    if (!(location.state && location.state.chat)) {
-      navigate("/messages");
-      return;
-    }
-
-    service
-      .profile()
-      .then((sender) => {
-        const recipient = location.state.chat;
-        setSender(sender);
-        setRecipient(recipient);
-        messageService.getMessages("me", recipient._id).then((messages) => {
-          messages.sort(
-            (message1, message2) =>
-              new Date(message1.sentOn).getTime() -
-              new Date(message2.sentOn).getTime()
-          );
-          setMessages(messages);
-        });
-
-        subscribeForUpdates(sender);
-      })
-      .catch((e) => {
-        navigate("/login", {
-          state: {
-            redirect: "/messages",
-          },
-        });
+    refreshMessagesUI(location, navigate, socket, (sender, recipient) => {
+      setSender(sender);
+      setRecipient(recipient);
+      messageService.getMessages("me", recipient._id).then((messages) => {
+        messages.sort((message1, message2) => new Date(message1.sentOn).getTime() - new Date(message2.sentOn).getTime());
+        setMessages(messages);
       });
-  };
-
-  /**
-   * Subscribe on socket.io for updates
-   */
-  const subscribeForUpdates = (sender) => {
-    try {
-      socket.removeAllListeners(sender._id);
-      socket.on(sender._id, (args) => refreshMessages());
-    } catch (e) {
-      console.log(e);
-    }
-  };
+    });
+  }
 
   useEffect(() => {
     refreshMessages();
   }, []);
 
   useEffect(() => {
-    const element = document.getElementById("messages-scroll-view");
-    if (element) {
-      element.scrollTop = element.scrollHeight;
-    }
+    scrollToBottom();
   }, [messages]);
 
   const messageDetails = {
