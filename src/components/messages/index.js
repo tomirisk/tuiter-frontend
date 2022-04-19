@@ -84,6 +84,7 @@ const Messages = () => {
           <input className="form-control rounded-pill bg-secondary bg-opacity-25"
                  placeholder="Search recipient"
                  onChange={(event) => setChatList(event.target.value)} />
+          <Link to="create-group"><i className="fas fa-user-group ms-3" /></Link>
           <Link to="broadcast"><i className="fa-solid fa-bullhorn ms-3" /></Link>
         </li>
         {
