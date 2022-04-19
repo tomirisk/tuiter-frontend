@@ -8,7 +8,7 @@ import * as groupService from "../../services/groups-service";
 
 
 /**
- * Component to represent Broadcast Messages screen
+ * Component to represent Group creation screen
  * @returns {JSX.Element} React component
  * @constructor
  */
