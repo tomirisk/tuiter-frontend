@@ -21,6 +21,7 @@ import Broadcast from "../messages/broadcast";
 import PinnedMessages from "../messages/pinned-messages";
 import MyStories from "../stories/my-stories";
 import PinnedMessages from "../messages/pinned-messages";
+import GroupChat from "../messages/group-chat";
 
 function Tuiter() {
   return (
@@ -43,6 +44,7 @@ function Tuiter() {
               <Route path="notifications" element={<Notifications />} />
               <Route path="messages" element={<Messages />} />
               <Route path="messages/chat" element={<Chat />} />
+              <Route path="messages/group-chat" element={<GroupChat />} />
               <Route path="messages/broadcast" element={<Broadcast />} />
               <Route path="bookmarks" element={<Bookmarks />} />
               <Route path="lists" element={<Lists />} />

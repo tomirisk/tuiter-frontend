@@ -84,3 +84,36 @@ export const getMessageById = async (mid) => {
   const response = await api.get(`${MESSAGES_API}/${mid}`);
   return response.data;
 };
+
+export const sendGroupMessage = async (senderId, groupId, message, attachment) => {
+  // TODO : Replace by API call
+};
+
+export const getGroupMessages = async (groupId, sender) => {
+  // TODO : Replace by API call and remove sender from params
+  const messages = [
+    {
+      _id:"1",
+      message:"yo group",
+      sender: sender,
+      group: groupId,
+      sentOn: new Date("1649128438901")
+    },
+    {
+      _id:"2",
+      message:"yo group",
+      sender: groupId.users[1],
+      group: groupId,
+      sentOn: new Date("1649128438902")
+    }
+  ]
+  return messages;
+};
+
+/**
+ * delete a group message
+ * @param mid message id to locate message to be deleted
+ */
+export const deleteGroupMessage = async (mid) => {
+  // TODO : Replace by API call
+};

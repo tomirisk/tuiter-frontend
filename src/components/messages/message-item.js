@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./index.css";
 import * as mediaService from "../../services/media-service";
 import * as messageService from "../../services/messages-service";
-import "./index.css";
+import { download } from "./ui-helper";
 
 /**
  * Represents the message component of the chat section
@@ -14,37 +15,18 @@ import "./index.css";
  * @constructor
  */
 const MessageItem = ({ messageItem, me, recipient, refreshMessages }) => {
-  /**
-   * Downloads the attachment in the message item
-   */
-  const download = () => {
-    mediaService.getURL(messageItem.attachmentKey).then((url) => {
-      axios.get(url, { responseType: "blob" }).then((response) => {
-        if (response.data) {
-          const url = window.URL.createObjectURL(response.data);
-          const a = document.createElement("a");
-          a.style.display = "none";
-          a.href = url;
-          a.download = "";
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-        }
-      });
-    });
-  };
 
   const deleteMessage = () => {
-    messageService.deleteMessage(messageItem._id);
-    refreshMessages();
+    messageService.deleteMessage(messageItem._id).then(() => refreshMessages());
   };
 
   const [isPinned, setIsPinned] = useState(messageItem.pinned);
   const pinMessage = () => {
     const newMessage = { ...messageItem, pinned: !messageItem.pinned };
-    messageService.pinMessage(newMessage);
-    setIsPinned(!isPinned);
-    messageItem.pinned = isPinned;
+    messageService.pinMessage(newMessage).then(() => {
+      setIsPinned(!isPinned);
+      messageItem.pinned = isPinned;
+    });
   };
 
   useEffect(() => {
@@ -64,7 +46,7 @@ const MessageItem = ({ messageItem, me, recipient, refreshMessages }) => {
             <div className="p-2 text-break overflow-auto bg-secondary bg-opacity-25 d-flex align-items-center">
               <div
                 className="px-2 round-icon bg-secondary bg-opacity-50"
-                onClick={download}
+                onClick={() => download(messageItem.attachmentKey)}
               >
                 <i className="fa fa-download" />
               </div>
@@ -116,7 +98,7 @@ const MessageItem = ({ messageItem, me, recipient, refreshMessages }) => {
             <div className="p-2 text-break overflow-auto sender-message-color d-flex align-items-center">
               <div
                 className="px-2 round-icon bg-secondary bg-opacity-50"
-                onClick={download}
+                onClick={() => download(messageItem.attachmentKey)}
               >
                 <i className="fa fa-download" />
               </div>
