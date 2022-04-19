@@ -16,10 +16,9 @@ const Stories = () => {
 
   useEffect(() => {
     authService.profile().then(me => {
-      storyService.findAllStories().then((stories) => {
-        // TODO : Apply proper filtering for stories
-        setPrivateStories(stories.filter((story) => story.postedBy._id !== me._id && story.visibility === "PRIVATE"));
-        setPublicStories(stories.filter((story) => story.postedBy._id !== me._id && story.visibility === "PUBLIC"));
+      storyService.findStoriesVisibleToUser(me._id).then((stories) => {
+        setPrivateStories(stories.filter((story) => story.postedBy._id !== me._id && story.viewers.length >= 1));
+        setPublicStories(stories.filter((story) => story.postedBy._id !== me._id && story.viewers.length < 1));
       });
     }).catch(e => {
       navigate('/login', {

@@ -23,9 +23,10 @@ const MyStories = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
 
   const refreshStories = () => {
+
     authService.profile().then(me => {
-      storyService.findAllStories().then((stories) => {
-        setMyStories(stories.filter((story) => story.postedBy._id === me._id));
+      storyService.findStoriesByUser(me._id).then((stories) => {
+        setMyStories(stories);
       });
 
       userService.findAllUsers().then((users) => {
@@ -45,9 +46,7 @@ const MyStories = () => {
   }, []);
 
   const create = () => {
-    // TODO : Use selected users for private story
-    console.log(selectedUsers);
-    storyService.createStory("me", story, image).then(refreshStories);
+    storyService.createStory("me", selectedUsers, story, image).then(refreshStories);
   }
 
   const visibilityOptions = [
@@ -59,8 +58,8 @@ const MyStories = () => {
    * Handler for user selection change
    * @param users array of selected users
    */
-  const handleChange = (selectedUsers) => {
-    setSelectedUsers(selectedUsers);
+  const handleChange = (users) => {
+    setSelectedUsers(users);
   }
 
   return (
