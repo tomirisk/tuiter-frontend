@@ -61,6 +61,7 @@ const Messages = () => {
                 <div className="w-100 d-flex align-items-center">
                   <img className="avatar me-2 bg-secondary bg-opacity-50" src={`https://avatars.dicebear.com/api/adventurer/${chat.username}.svg`} alt=""/>
                   <div className="p-2 text-break overflow-auto">
+                    
                     <span>@{chat.username} - {chat.firstName} {chat.lastName}</span>
                   </div>
                 </div>
