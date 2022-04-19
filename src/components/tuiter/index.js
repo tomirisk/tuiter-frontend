@@ -49,10 +49,6 @@ function Tuiter() {
               <Route path="more" element={<More />} />
               <Route path="stories" element={<Stories />} />
               <Route path="stories/:sid/view" element={<ViewStory />} />
-              <Route
-                path="/messages/:sid/pinned/:rid"
-                element={<PinnedMessages />}
-              />
             </Routes>
           </div>
           <div className="ttr-right-column">
