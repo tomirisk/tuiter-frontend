@@ -5,6 +5,7 @@ import "./index.css";
 import MessageInput from "./message-input";
 import GroupMessageItem from "./group-message-item";
 import * as messageService from "../../services/messages-service";
+import * as groupsService from "../../services/groups-service";
 import { scrollToBottom, refreshMessagesUI } from "./ui-helper";
 
 const socket = io(process.env.REACT_APP_BASE_URL);
@@ -51,6 +52,18 @@ const GroupChat = () => {
     });
   }
 
+  /**
+   * Leave the current group
+   */
+  const leaveGroup = () => {
+    if (window.confirm("Are you sure about leaving this group?")) {
+      group.users = group.users.filter(user => user._id !== sender._id);
+      groupsService.updateGroup(group).then(() => {
+        navigate('/messages');
+      });
+    }
+  }
+
   useEffect(() => {
     refreshMessages();
   }, []);
@@ -66,7 +79,8 @@ const GroupChat = () => {
         <div className="d-flex flex-column h-100">
           <div className="bg-secondary bg-opacity-50 p-2 d-flex align-items-center">
             <Link to="/messages"><i className="fa fa-angle-left ps-2 pe-4 text-black" /></Link>
-            <h3>{group.name}</h3>
+            <h3 className="px-2 w-100">{group.name}</h3>
+            <i role="button" onClick={leaveGroup} className="fa-solid fa-arrow-right-from-bracket px-2"/>
           </div>
           <div id="messages-scroll-view" className="h-100 overflow-auto">
             {
