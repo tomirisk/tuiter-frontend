@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+const api = axios.create({withCredentials: true});
 
 export const findGroups = async (uid) => {
   // TODO : Replace by API call
@@ -22,4 +23,15 @@ export const findGroups = async (uid) => {
     ]
   }];
   return groups;
+}
+
+/**
+ * Updates the given group
+ * @param group updated group
+ * @returns {Promise<any>} Status of the update operation
+ */
+export const updateGroup = async (group) => {
+  const UPDATE_GROUP_API = `${BASE_URL}/api/groups/${group._id}`;
+  const response = await api.put(UPDATE_GROUP_API, group);
+  return response.data;
 }
