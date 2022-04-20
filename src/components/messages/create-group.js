@@ -38,19 +38,15 @@ const CreateGroup = () => {
      * Handler for user selection change
      * @param users array of selected users
      */
-    const handleChange = (allUsers) => {
-        setSelectedUsers(allUsers);
+    const handleChange = (users) => {
+        setSelectedUsers(users);
     }
 
     const handleGroupName = (e) => {
         setGroup({...group, name: e.target.value});
-        console.log(group)
-
     }
 
     const createGroup = () => {
-        // setGroup({...group, users: selectedUsers.map(selectedUser => selectedUser._id)});
-        console.log(group)
         if(selectedUsers.length < 1){
             alert("Please select one or more users to add to your group.");
             return;
