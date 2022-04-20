@@ -1,5 +1,6 @@
-html, body {
-  height: 100%
+html,
+body {
+  height: 100%;
 }
 
 #root {
@@ -22,6 +23,18 @@ html, body {
   border-radius: 50%;
 }
 
-.sender-message-color{
+.sender-message-color {
   background-color: palegreen;
+}
+
+.pin-icon {
+  margin-left: auto;
+}
+
+.pin-gray {
+  color: gray;
+}
+
+.pin-green {
+  color: green;
 }
