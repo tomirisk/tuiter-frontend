@@ -85,35 +85,42 @@ export const getMessageById = async (mid) => {
   return response.data;
 };
 
+/**
+ * Sends a group message
+ * @param senderId sender user id
+ * @param groupId group id
+ * @param message message to send
+ * @param attachment attachment to send
+ */
 export const sendGroupMessage = async (senderId, groupId, message, attachment) => {
-  // TODO : Replace by API call
+  const SEND_GROUP_MESSAGE_API = `${BASE_URL}/api/groups/${groupId}/users/${senderId}/messages`;
+  const messageParams = { message };
+  if (attachment) {
+    messageParams.attachmentKey = await mediaService.upload(attachment);
+  }
+
+  const response = await api.post(SEND_GROUP_MESSAGE_API, messageParams);
+  return response.data;
 };
 
-export const getGroupMessages = async (groupId, sender) => {
-  // TODO : Replace by API call and remove sender from params
-  const messages = [
-    {
-      _id:"1",
-      message:"yo group",
-      sender: sender,
-      group: groupId,
-      sentOn: new Date("1649128438901")
-    },
-    {
-      _id:"2",
-      message:"yo group",
-      sender: groupId.users[1],
-      group: groupId,
-      sentOn: new Date("1649128438902")
-    }
-  ]
-  return messages;
+/**
+ * Fetches the list of messages in a group
+ * @param groupId group id
+ * @returns {Promise<*[]>}
+ */
+export const getGroupMessages = async (groupId) => {
+  const GET_GROUP_MESSAGES_API = `${BASE_URL}/api/groups/${groupId}/messages`;
+  const response = await api.get(GET_GROUP_MESSAGES_API);
+  return response.data;
 };
 
 /**
  * delete a group message
+ * @param groupId group Id
  * @param mid message id to locate message to be deleted
  */
-export const deleteGroupMessage = async (mid) => {
-  // TODO : Replace by API call
+export const deleteGroupMessage = async (groupId, mid) => {
+  const DELETE_API = `${BASE_URL}/api/groups/${groupId}/messages/${mid}`;
+  const response = await api.delete(DELETE_API);
+  return response.data;
 };

@@ -34,15 +34,34 @@ const Messages = () => {
       (group.name && group.name.toLowerCase().includes(searchValue.toLowerCase())));
 
     const chatsToDisplay = [...userChatsToDisplay, ...groupChatsToDisplay];
+    chatsToDisplay.sort((chat1, chat2) =>
+      !chat1.latestMessage ? 1 : !chat2.latestMessage ? -1 : (chat1.latestMessage && chat2.latestMessage) ?
+        new Date(chat2.latestMessage.sentOn).getTime() - new Date(chat1.latestMessage.sentOn).getTime() : 0);
+
     setChats(chatsToDisplay);
   }
 
   useEffect(() => {
     const fetchChats = () => {
       authService.profile().then(async (me) => {
-        const userList = (await userService.findAllUsers()).filter(user => user._id !== me._id);
+        const usersResponse = await userService.findAllUsers("me", "latest-message");
+        const userList = usersResponse.users.filter(user => user._id !== me._id);
+        usersResponse.metadata.map((data) => {
+          const user = userList.find(user => user._id === data._id);
+          if (user && data.latestMessage) {
+            user.latestMessage = data.latestMessage;
+          }
+        });
         setUsers(userList);
-        const groupList = await groupsService.findGroups(me);
+
+        const groupResponse = await groupsService.findGroups("me", "latest-message");
+        const groupList = groupResponse.groups;
+        groupResponse.metadata.map((data) => {
+          const group = groupList.find(group => group._id === data._id);
+          if (group && data.latestMessage) {
+            group.latestMessage = data.latestMessage;
+          }
+        });
         setGroups(groupList);
 
         setChatList('', userList, groupList);
@@ -75,8 +94,8 @@ const Messages = () => {
                 <div className="w-100 d-flex align-items-center">
                   <img className="avatar me-2 bg-secondary bg-opacity-50" src={`https://avatars.dicebear.com/api/adventurer/${chat.username}.svg`} alt=""/>
                   <div className="p-2 text-break overflow-auto">
-                    
-                    <span>@{chat.username} - {chat.firstName} {chat.lastName}</span>
+                    <div>@{chat.username} - {chat.firstName} {chat.lastName}</div>
+                    <div className="small text-secondary">{chat.latestMessage && chat.latestMessage.message}</div>
                   </div>
                 </div>
               </Link>
@@ -85,7 +104,8 @@ const Messages = () => {
                 <div className="w-100 d-flex align-items-center">
                   <img className="avatar me-2 bg-secondary bg-opacity-50" src={`https://avatars.dicebear.com/api/initials/${chat.name}.svg`} alt=""/>
                   <div className="p-2 text-break overflow-auto">
-                    <span>{chat.name}</span>
+                    <div>{chat.name}</div>
+                    <div className="small text-secondary">{chat.latestMessage && chat.latestMessage.message}</div>
                   </div>
                 </div>
               </Link>
