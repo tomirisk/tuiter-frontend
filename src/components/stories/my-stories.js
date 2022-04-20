@@ -46,7 +46,11 @@ const MyStories = () => {
   }, []);
 
   const create = () => {
-    storyService.createStory("me", selectedUsers, story, image).then(refreshStories);
+    storyService.createStory("me", selectedUsers, story, image).then(() => {
+      refreshStories();
+      setStory("");
+      setImage(null);
+    });
   }
 
   const visibilityOptions = [
@@ -66,7 +70,7 @@ const MyStories = () => {
     <div className="container">
       <h1>Stories</h1>
       <div className="d-flex mt-2 align-self-center">
-        <textarea placeholder="Share your story" className="w-100 border"
+        <textarea placeholder="Share your story" className="w-100 border" value={story}
                   onChange={(event) => setStory(event.target.value)}/>
         <div className="align-self-center ms-2">
           {
