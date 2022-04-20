@@ -26,6 +26,7 @@ const MyStories = () => {
 
     authService.profile().then(me => {
       storyService.findStoriesByUser(me._id).then((stories) => {
+        stories.sort((story1, story2) => new Date(story2.postedOn).getTime() - new Date(story1.postedOn).getTime());
         setMyStories(stories);
       });
 
