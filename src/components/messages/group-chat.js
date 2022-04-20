@@ -45,7 +45,7 @@ const GroupChat = () => {
     refreshMessagesUI(location, navigate, socket, (sender, group) => {
       setSender(sender);
       setGroup(group);
-      messageService.getGroupMessages(group, sender).then(messages => {
+      messageService.getGroupMessages(group._id).then(messages => {
         messages.sort((message1, message2) => new Date(message1.sentOn).getTime() - new Date(message2.sentOn).getTime());
         setMessages(messages);
       });
@@ -84,7 +84,7 @@ const GroupChat = () => {
           </div>
           <div id="messages-scroll-view" className="h-100 overflow-auto">
             {
-              messages.map(message => <GroupMessageItem key={message._id} messageItem={message} me={sender} />)
+              messages.map(message => <GroupMessageItem key={message._id} messageItem={message} me={sender} refreshMessages={refreshMessages} />)
             }
           </div>
           <MessageInput sendHandler={send} />

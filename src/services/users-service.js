@@ -4,13 +4,25 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const LOGIN_API = `${BASE_URL}/api/login`;
 const USERS_API = `${BASE_URL}/api/users`;
 
+export const api = axios.create({ withCredentials: true });
+
 export const createUser = (user) =>
   axios.post(`${USERS_API}`, user)
     .then(response => response.data);
 
-export const findAllUsers = () =>
-    axios.get(USERS_API)
-        .then(response => response.data);
+/**
+ * Gets the list of users
+ * @param uid user id
+ * @param metadata metadata to fetch
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const findAllUsers = (uid, metadata) => {
+  if (uid && metadata) {
+    const params = {uid, metadata};
+    return api.get(USERS_API, {params}).then(response => response.data);
+  }
+  return axios.get(USERS_API).then(response => response.data);
+}
 
 export const findUserById = (uid) =>
     axios.get(`${USERS_API}/${uid}`)

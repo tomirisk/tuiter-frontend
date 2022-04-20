@@ -18,9 +18,7 @@ import Chat from "../messages/chat";
 import Stories from "../stories";
 import ViewStory from "../stories/view-story";
 import Broadcast from "../messages/broadcast";
-import PinnedMessages from "../messages/pinned-messages";
 import MyStories from "../stories/my-stories";
-import PinnedMessages from "../messages/pinned-messages";
 import GroupChat from "../messages/group-chat";
 
 function Tuiter() {

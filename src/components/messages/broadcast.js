@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import "./index.css";
 import MultiSelectUsers from "../multi-select-users";
 import * as messageService from "../../services/messages-service";
+import * as groupsService from "../../services/groups-service";
 
 /**
  * Component to represent Broadcast Messages screen
@@ -15,13 +16,15 @@ import * as messageService from "../../services/messages-service";
 const Broadcast = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
   useEffect(() => {
-    service.profile().then(me => {
-      userService.findAllUsers().then(userList => {
-        setUsers(userList.filter(user => user._id !== me._id));
-      });
+    service.profile().then(async (me) => {
+      const userList = await userService.findAllUsers();
+      setUsers(userList.filter(user => user._id !== me._id));
+      const groupList = await groupsService.findGroups(me._id);
+      setGroups(groupList);
     }).catch(e => {
       navigate('/login', {
         state: {
@@ -59,7 +62,7 @@ const Broadcast = () => {
       <h2>Broadcast</h2>
       <MessageInput sendHandler={send} />
       {
-        users && <MultiSelectUsers users={users} onChange={handleChange} />
+        users && <MultiSelectUsers users={users} groups={groups} onChange={handleChange} />
       }
     </>
   );

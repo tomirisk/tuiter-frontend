@@ -7,12 +7,13 @@ import { download } from "./ui-helper";
  * Represents the message component of the chat section
  * @param messageItem message object
  * @param me logged in user
+ * @param refreshMessages function to refresh the messages
  * @returns {JSX.Element} react component
  * @constructor
  */
-const GroupMessageItem = ({messageItem, me}) => {
+const GroupMessageItem = ({messageItem, me, refreshMessages}) => {
   const deleteMessage = () => {
-    messageService.deleteGroupMessage(messageItem._id);
+    messageService.deleteGroupMessage(messageItem.group._id, messageItem._id).then(() => refreshMessages());
   }
 
   return(
