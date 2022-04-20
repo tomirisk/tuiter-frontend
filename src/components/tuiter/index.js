@@ -19,6 +19,7 @@ import Stories from "../stories";
 import ViewStory from "../stories/view-story";
 import Broadcast from "../messages/broadcast";
 import PinnedMessages from "../messages/pinned-messages";
+import MyStories from "../stories/my-stories";
 
 function Tuiter() {
   return (
@@ -53,6 +54,7 @@ function Tuiter() {
                 path="/messages/:sid/pinned/:rid"
                 element={<PinnedMessages />}
               />
+              <Route path="stories/my-stories" element={<MyStories />} />
             </Routes>
           </div>
           <div className="ttr-right-column">
