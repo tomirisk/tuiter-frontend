@@ -29,9 +29,13 @@ export const createStory = async (user, selectedUsers, story, image) => {
  * Returns all stories from the database.
  * @returns {Promise<*>} All stories as an array of JSON objects.
  */
-export const findAllStories = async () => {
+export const findAllStories = async (hours) => {
+  const params = {};
+  if(hours) {
+    params.hours = hours;
+  }
   const GET_STORIES_API = `${BASE_URL}/api/stories`;
-  const response = await api.get(GET_STORIES_API);
+  const response = await api.get(GET_STORIES_API, {params});
   const stories = response.data;
   await Promise.all(stories.map(async (story) => {
     story.image = await mediaService.getURL(story.image);
