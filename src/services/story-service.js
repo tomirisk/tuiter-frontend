@@ -59,9 +59,13 @@ export const findStoryById = async (sid) => {
  * @param {string} uid Primary key of the user
  * @returns {Promise<any>} stories as an array of JSON objects
  */
-export const findStoriesVisibleToUser = async (uid) => {
+export const findStoriesVisibleToUser = async (uid, hours) => {
+  const params = {};
+  if(hours) {
+    params.hours = hours;
+  }
   const GET_STORY_API = `${BASE_URL}/api/users/${uid}/stories`;
-  const response = await api.get(GET_STORY_API);
+  const response = await api.get(GET_STORY_API, {params});
   const stories = response.data;
   await Promise.all(stories.map(async (story) => {
     story.image = await mediaService.getURL(story.image);

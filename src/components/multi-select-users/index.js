@@ -4,11 +4,12 @@ import Select from "react-select";
 /**
  * Component that provides a way to multi-select users
  * @param users users to select from
+ * @param groups groups to select from
  * @param onChange handler to execute when selection changes
  * @returns {JSX.Element} React component
  * @constructor
  */
-const MultiSelectUsers = ({users, onChange}) => {
+const MultiSelectUsers = ({users, groups, onChange}) => {
 
   /**
    * Builds a label for user object
@@ -20,14 +21,28 @@ const MultiSelectUsers = ({users, onChange}) => {
   /**
    * Returns the list of options to populate
    */
-  const options = users.map(user => { return {value: user, label: getLabel(user)}});
+  const options = [];
+  if (users) {
+    options.push(...users.map(user => { return {value: user, label: getLabel(user)}}));
+  }
+  if (groups) {
+    options.push(...groups.map(group => { return {value: group, label: group.name}}));
+  }
 
   /**
    * Executes the onChange handler when selection changes
    * @param selectedOptions selected Options
    */
   const handleChange = (selectedOptions) => {
-    const selectedUsers = selectedOptions.map(selectedOption => selectedOption.value);
+    const selectedUsers = selectedOptions.filter(selectedOption => selectedOption.value.username).map(selectedOption => selectedOption.value);
+    const selectedGroups = selectedOptions.filter(selectedOption => selectedOption.value.users).map(selectedOption => selectedOption.value);
+    selectedGroups.map(group => {
+      group.users.map(user => {
+        if (!selectedUsers.find(selectedUser => selectedUser._id === user._id)) {
+          selectedUsers.push(user);
+        }
+      })
+    })
     onChange(selectedUsers);
   }
 
