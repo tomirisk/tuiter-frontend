@@ -20,6 +20,7 @@ import ViewStory from "../stories/view-story";
 import Broadcast from "../messages/broadcast";
 import MyStories from "../stories/my-stories";
 import GroupChat from "../messages/group-chat";
+import CreateGroup from "../messages/create-group";
 
 function Tuiter() {
   return (
@@ -43,6 +44,7 @@ function Tuiter() {
               <Route path="messages" element={<Messages />} />
               <Route path="messages/chat" element={<Chat />} />
               <Route path="messages/group-chat" element={<GroupChat />} />
+              <Route path="messages/create-group" element={<CreateGroup/>}/>
               <Route path="messages/broadcast" element={<Broadcast />} />
               <Route path="bookmarks" element={<Bookmarks />} />
               <Route path="lists" element={<Lists />} />
