@@ -7,6 +7,7 @@ import * as authService from "../../services/auth-service";
 import * as userService from "../../services/users-service";
 import "./stories.css";
 import MultiSelectUsers from "../multi-select-users";
+import * as groupsService from "../../services/groups-service";
 
 /**
  * Represents the stories component that renders list of story items uploaded by current user
@@ -21,17 +22,24 @@ const MyStories = () => {
   const [visibility, setVisibility] = useState("PUBLIC");
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [groups, setGroups] = useState([]);
 
   const refreshStories = () => {
 
     authService.profile().then(me => {
-      storyService.findStoriesByUser(me._id).then((stories) => {
+      storyService.findStoriesByUser(me._id).then(async (stories) => {
+        stories.sort((story1, story2) => new Date(story2.postedOn).getTime() - new Date(story1.postedOn).getTime());
         setMyStories(stories);
+        const groupList = await groupsService.findGroups(me._id);
+        setGroups(groupList);
       });
 
       userService.findAllUsers().then((users) => {
         setUsers(users.filter(user => user._id !== me._id));
       })
+
+
+
     }).catch(e => {
       navigate('/login', {
         state: {
@@ -46,7 +54,11 @@ const MyStories = () => {
   }, []);
 
   const create = () => {
-    storyService.createStory("me", selectedUsers, story, image).then(refreshStories);
+    storyService.createStory("me", selectedUsers, story, image).then(() => {
+      refreshStories();
+      setStory("");
+      setImage(null);
+    });
   }
 
   const visibilityOptions = [
@@ -66,7 +78,7 @@ const MyStories = () => {
     <div className="container">
       <h1>Stories</h1>
       <div className="d-flex mt-2 align-self-center">
-        <textarea placeholder="Share your story" className="w-100 border"
+        <textarea placeholder="Share your story" className="w-100 border" value={story}
                   onChange={(event) => setStory(event.target.value)}/>
         <div className="align-self-center ms-2">
           {
@@ -88,7 +100,7 @@ const MyStories = () => {
       <div className="d-flex mt-2 align-self-center">
         <Select defaultValue={visibilityOptions[0]} options={visibilityOptions} className="w-25"
                 onChange={(option) => setVisibility(option.value)} />
-        {visibility === "PRIVATE" && <div className="w-75"><MultiSelectUsers users={users} onChange={handleChange}/></div>}
+        {visibility === "PRIVATE" && <div className="w-75"><MultiSelectUsers users={users} groups={groups} onChange={handleChange}/></div>}
       </div>
       <div className="d-flex mt-2 align-self-center">
         <a className={`btn btn-primary rounded-pill text-white fw-bold bg-black border-0 ${image ? '' : 'disabled'}`}

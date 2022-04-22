@@ -16,7 +16,8 @@ const Stories = () => {
 
   useEffect(() => {
     authService.profile().then(me => {
-      storyService.findStoriesVisibleToUser(me._id).then((stories) => {
+      storyService.findStoriesVisibleToUser(me._id, 24).then((stories) => {
+        stories.sort((story1, story2) => new Date(story2.postedOn).getTime() - new Date(story1.postedOn).getTime());
         setPrivateStories(stories.filter((story) => story.postedBy._id !== me._id && story.viewers.length >= 1));
         setPublicStories(stories.filter((story) => story.postedBy._id !== me._id && story.viewers.length < 1));
       });
