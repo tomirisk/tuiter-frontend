@@ -11,7 +11,7 @@ const StoryItem = ({ story }) => {
 
   return (
     <>
-      <div className="col-4 d-flex">
+      <div className="col-4">
         <div className="card mt-2 mb-2">
           <Link to={`/stories/${story._id}/view`}>
             <img src={`${story.image}`} className="card-img-top story-item" />
