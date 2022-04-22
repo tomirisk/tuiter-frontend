@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const api = axios.create({withCredentials: true});
+export const api = axios.create({withCredentials: true});
 
 /**
  * Gets the list of group for a user
